@@ -100,7 +100,7 @@
       },
       {
         "type": "Microsoft.insights/autoscalesettings",
-        "name": "Autoscale",
+        "name": "[parameters('hostingPlanName')]",
         "apiVersion": "2015-04-01",
         "location": "Southeast Asia",
         "properties": {
