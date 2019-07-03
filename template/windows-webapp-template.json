@@ -101,9 +101,11 @@
       {
         "type": "Microsoft.insights/autoscalesettings",
         "name": "Autoscale",
+        "dependsOn": [
+            "[resourceId('Microsoft.Web/serverfarms', 'forCD')]"
+        ],
         "apiVersion": "2015-04-01",
         "location": "Southeast Asia",
-        "scale": null,
         "properties": {
           "profiles": [
             {
