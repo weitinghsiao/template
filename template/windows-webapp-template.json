@@ -102,7 +102,7 @@
         "type": "Microsoft.insights/autoscalesettings",
         "name": "Autoscale",
         "apiVersion": "2015-04-01",
-        "location": "[variables('location')]",
+        "location": "Southest Asia",
         "scale": null,
         "properties": {
           "profiles": [
