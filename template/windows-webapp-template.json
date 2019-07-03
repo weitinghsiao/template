@@ -97,6 +97,25 @@
               "applicationId": "[parameters('webAppName')]",
               "Request_Source": "AzureTfsExtensionAzureProject"
           }
-      }
+      },
+      {
+        "type": "Microsoft.insights/autoscalesettings",
+        "name": "Autoscale",
+        "apiVersion": "2015-04-01",
+        "location": "[variables('location')]",
+        "scale": null,
+        "properties": {
+          "profiles": [
+            {
+              "name": "Autoscale by percentage based on CPU usage",
+              "capacity": {
+                "minimum": "2",
+                "maximum": "10",
+                "default": "2"
+              }
+            }
+          ]
+        }
+    }
   ]
 }
