@@ -6,15 +6,16 @@
           "type": "string",
           "defaultValue": "Southeast Asia"
       },
-      "webAppName": {
-          "type": "string"
-      },
       "hostingPlanName": {
           "type": "string"
       },
-      "sku": {
-          "type": "string",
-          "defaultValue": "Standard S1"
+      "upperBound":{
+        "type": "int",
+        "defaultValue": 60
+      },
+      "lowerBound":{
+        "type": "int",
+        "defaultValue": 30
       },
       "capacityDefault": {
         "type": "string",
@@ -55,7 +56,7 @@
                     "timeWindow": "PT5M",
                     "timeAggregation": "Average",
                     "operator": "GreaterThan",
-                    "threshold": 60
+                    "threshold": "[parameters('upperBound')]"
                   },
                   "scaleAction": {
                     "direction": "Increase",
@@ -74,7 +75,7 @@
                         "timeWindow": "PT5M",
                         "timeAggregation": "Average",
                         "operator": "LessThan",
-                        "threshold": 30
+                        "threshold": "[parameters('lowerBound')]"
                     },
                     "scaleAction": {
                         "direction": "Decrease",
