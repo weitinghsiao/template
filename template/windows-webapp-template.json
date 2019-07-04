@@ -11,7 +11,7 @@
       },
       "upperBound":{
         "type": "int",
-        "defaultValue": 60
+        "defaultValue": 70
       },
       "lowerBound":{
         "type": "int",
@@ -62,7 +62,7 @@
                     "direction": "Increase",
                     "type": "ChangeCount",
                     "value": "1",
-                    "cooldown": "PT10M"
+                    "cooldown": "PT50M"
                   }
                 },
                 {
@@ -81,7 +81,7 @@
                         "direction": "Decrease",
                         "type": "ChangeCount",
                         "value": "1",
-                        "cooldown": "PT10M"
+                        "cooldown": "PT50M"
                     }
                 }
               ]
