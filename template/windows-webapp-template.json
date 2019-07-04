@@ -15,7 +15,19 @@
       "sku": {
           "type": "string",
           "defaultValue": "Standard S1"
-      }
+      },
+      "capacityDefault": {
+        "type": "string",
+        "defaultValue": "1"
+      },
+      "capacityMinimum": {
+        "type": "string",
+        "defaultValue": "1"
+      },
+      "capacityMaximum": {
+        "type": "string",
+        "defaultValue": "5"
+     }
   },
   "resources": [
       {
@@ -28,9 +40,9 @@
             {
               "name": "Autoscale by percentage based on CPU usage",
               "capacity": {
-                "minimum": "1",
-                "maximum": "4",
-                "default": "1"
+                "minimum": "[parameters('capacityMinimum')]",
+                "maximum": "[parameters('capacityMaximum')]",
+                "default": "[parameters('capacityDefault')]"
               },
               "rules": [
                 {
@@ -43,7 +55,7 @@
                     "timeWindow": "PT5M",
                     "timeAggregation": "Average",
                     "operator": "GreaterThan",
-                    "threshold": 70
+                    "threshold": 60
                   },
                   "scaleAction": {
                     "direction": "Increase",
@@ -62,7 +74,7 @@
                         "timeWindow": "PT5M",
                         "timeAggregation": "Average",
                         "operator": "LessThan",
-                        "threshold": 40
+                        "threshold": 30
                     },
                     "scaleAction": {
                         "direction": "Decrease",
