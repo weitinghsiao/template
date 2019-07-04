@@ -2,6 +2,10 @@
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
+      "location": {
+          "type": "string",
+          "defaultValue": "Southeast Asia"
+      },
       "webAppName": {
           "type": "string"
       },
@@ -89,7 +93,7 @@
           "type": "Microsoft.Insights/components",
           "name": "[parameters('webAppName')]",
           "apiVersion": "2014-04-01",
-          "location": "Southeast Asia",
+          "location": "[parameters('location')]",
           "tags": {
               "[concat('hidden-link:', resourceGroup().id, '/providers/Microsoft.Web/sites/', parameters('webAppName'))]": "Resource"
           },
@@ -102,18 +106,41 @@
         "type": "Microsoft.insights/autoscalesettings",
         "name": "[parameters('hostingPlanName')]",
         "apiVersion": "2015-04-01",
-        "location": "Southeast Asia",
+        "location": "[parameters('location')]",
         "properties": {
           "profiles": [
             {
               "name": "Autoscale by percentage based on CPU usage",
               "capacity": {
-                "minimum": "2",
-                "maximum": "10",
-                "default": "2"
+                "minimum": "1",
+                "maximum": "3",
+                "default": "1"
               }
+            },
+            {
+                "rules": [
+                {
+                  "metricTrigger": {
+                    "metricName": "Percentage CPU",
+                    "metricNamespace": "",
+                    "metricResourceUri": "[resourceId('Microsoft.Web/serverfarms/', parameters('hostingPlanName'))]",
+                    "metricResourceLocation": "[parameters('location')]",
+                    "timeGrain": "PT1M",
+                    "statistic": "Average",
+                    "timeWindow": "PT5M",
+                    "timeAggregation": "Average",
+                    "operator": "GreaterThan",
+                    "threshold": 70
+                  },
+                  "scaleAction": {
+                    "direction": "Increase",
+                    "type": "ChangeCount",
+                    "value": "3",
+                    "cooldown": "PT5M"
+                  }
+                }
+              ]
             }
-
           ],
           "enabled": true,
           "name": "[parameters('hostingPlanName')]",
